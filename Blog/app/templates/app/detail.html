@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+   <meta charset="UTF-8">
+   <meta http-equiv="X-UA-Compatible" content="IE=edge">
+   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+   <title>Blog Home</title>
+</head>
+<body>
+   {% for field in blog %}
+   <a href="{% url 'update' field.id %}">Update</a>
+   <a href="{% url 'delete' field.id %}">Delete</a>
+   <h5>{{field.user}}</h5><br>
+      {{field.title}} <br>
+      {{field.description}}<br>
+      <div>
+         <form action="{% url 'like' field.id %}" method="POST">
+            {% csrf_token %}
+         <button type="submit">Like</button>
+         </form>
+         <h2>{{count}}</h2>
+
+   </div>
+      <div>
+         <h3>Add Comment</h3>
+         <form action="{% url 'comment' field.id %}" method="POST">
+            {% csrf_token %}
+            {{cform.body}}
+           <button type="submit">Submit</button>
+         </form>
+      </div>
+      {% for i in field.comments.all %}
+      <p> {{i.body}}</p>
+      {% endfor %}
+
+      {% endfor %}
+     
+      
+      
+
+   </div>
+  
+  
+  
+
+   
+    
+</body>
+</html>

@@ -1,0 +1,86 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+   <meta charset="UTF-8">
+   <meta http-equiv="X-UA-Compatible" content="IE=edge">
+   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+   <link rel="stylesheet" href="{% static '/css/index.css' %}">
+   <title>Blog Home</title>
+</head>
+<body>
+
+   <section class="main-nav">
+      <ul class="nav_link">
+         <li><a href="#">Logo</a></li>
+         <form method="GET" action="{% url 'home' %}" class="search">
+            <input type="text" name="q" placeholder="Search">
+            <button style="height:35px;">Search</button>
+         </form>
+         <div class="log-div">
+            
+            <div class="div1">
+               <div class="profile">
+                  <a href="#">Profile Image</a>
+               </div>     
+            </div>
+            <div class="div2">
+               <h4>Welcome {{request.user}}</h4>
+               <div class="infoprofile">
+                  <a href="">Sign in &nbsp|</a>
+                  <a href="{% url 'register' %}">&nbsp Register</a>
+               </div>
+            </div>
+           
+         </div>
+      </ul>
+</section>
+
+<section class="write_blog">
+   <button class="wbtn"><a href="">Write a Blog</a> </button>
+</section>
+
+
+
+<section class="main_section">
+   <div class="blog_title">
+      <h3>Latest Blog Post</h3>
+      <h3>Topics</h3>
+   </div>
+   <div class="main_container">
+      <div class="right">
+         {% for field in blog %}
+         <div class="container">
+            <h3><a href="{% url 'userprofile' field.id %}">{{field.title}}</a></h3>
+            <p>{{field.description | safe }}</p>
+            <div class="profile-info">
+               <div class="pimg">
+                  <img src="" alt="img">
+               </div>
+               <div class="info">
+                  <h5><a href="{% url 'userprofile' field.user %}">{{field.user}}</a></h5>
+                  <h6>Date</h6>
+               </div>
+            </div>
+         </div>
+         {% endfor %} 
+      </div>
+      <div class="left" >
+         <div class="category">
+            <img src="" alt="logo">
+            <h4><a href="{% url 'home' %}?q=Technology">Tech</a></h4>
+         </div>
+         <div class="category">
+            <img src="" alt="logo">
+            <h4><a href="{% url 'home' %}?q=Health">Health</a></h4>
+         </div>
+         <div class="category">
+            <img src="" alt="logo">
+            <h4> <a href="{% url 'home' %}?q=Food">Food</a></h4>
+         </div>
+      </div>
+   </div>
+</section>
+       
+</body>
+</html>
